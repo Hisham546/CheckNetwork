@@ -14,24 +14,24 @@ export default function CheckNetwork({ navigation }) {
   const checkNetwork = async () => {
     NetInfo.fetch().then(state => {
       setNetwork(state.isInternetReachable === true);
-      console.log("Connection type", state.type);
-      console.log("Is isInternetReachable?", state.isInternetReachable);
+      //  console.log("Connection type", state.type);
+      // console.log("Is isInternetReachable?", state.isInternetReachable);
     });
   };
 
   useEffect(() => {
     if (isFocused) {
       checkNetwork();
-      LogBox.ignoreLogs(['new NativeEventEmitter']); 
+      LogBox.ignoreLogs(['new NativeEventEmitter']);
       //LogBox.ignoreAllLogs()
     }
-
+    //  sets up an event listener
     const unsubscribe = NetInfo.addEventListener(state => {
       setNetwork(state.isInternetReachable === true);
     });
 
     return () => {
-      unsubscribe();
+      unsubscribe(); // listener is cleaned up
     };
   }, [isFocused]);
 
